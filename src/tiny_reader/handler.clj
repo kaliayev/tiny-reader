@@ -43,10 +43,12 @@
         (json/encode {:available-sources sources}))))
 
 (defroutes app-routes
-  (GET "/read" {{:strs [source num]} :query-params}
-       (handle-get (keyword source) num))
-  (GET "/sources" {{:strs [type]} :query-params}
+  (GET "/sources" [type]
        (handle-get-sources (keyword type)))
+  (GET "/sources/:source" [source]
+       (handle-get (keyword source) nil))
+  (GET "/sources/:source/read/:number" [source number]
+       (handle-get (keyword source) number))
   (route/not-found "Not Found"))
 
 (def app
