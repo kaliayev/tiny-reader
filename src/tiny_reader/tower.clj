@@ -21,6 +21,10 @@
                        :type :news
                        :url (URL. "https://news.ycombinator.com/")
                        :protocol :http}
+         :lobsters {:title-selector [:body :div :div :ol.stories :li.story :div.story_liner :div.details :span.link :a]
+                    :type :news
+                    :url (URL. "https://lobste.rs/")
+                    :protocol :https}
          :cbc {:title-selector [:ul.moreheadlines-list :li :a]
                :type :news
                :url (URL. "http://www.cbc.ca/world/")
