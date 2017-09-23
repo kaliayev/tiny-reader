@@ -31,7 +31,8 @@
                             (:url (nth (get-headlines source) num))
                             source)))
     source (do (println "Sending Headlines: " (get-headlines source))
-               (json/encode {source (get-headlines source)}))
+               {:body (json/encode {source (get-headlines source)})
+                :headers {"Access-Control-Allow-Origin" "*"}})
     :else (route/not-found "Provide source, or source and article number to read")))
 
 (defn handle-get-sources
@@ -40,7 +41,8 @@
                   ($/get-sources-by-type type)
                   ($/get-all-sources))]
     (do (println "Fetching Available Sources of Type " type ": " sources)
-        (json/encode {:available-sources sources}))))
+        {:body (json/encode {:available-sources sources})
+         :headers {"Access-Control-Allow-Origin" "*"}})))
 
 (defroutes app-routes
   (GET "/sources" [type]
